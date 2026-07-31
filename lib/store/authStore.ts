@@ -2,8 +2,9 @@ import { create } from 'zustand';
 // import { User } from '../api';
 
 interface User {
-    name: string;
-    email: string;
+  username: string;
+  email: string;
+  avatar: string;
 }
 
 type AuthStore = {

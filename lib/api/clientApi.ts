@@ -1,5 +1,6 @@
 import axios from "axios";
 import type { Note, NoteTag } from "../../types/note";
+import { nextServer } from "./api";
 
 interface FetchNotesResponse {
   notes: Note[];
@@ -74,12 +75,25 @@ export const fetchNoteById = async (id: string): Promise<Note> => {
   return data;
 }
 
-// register
 
-// login
+export const register = async (data: { email: string; password: string }) => {
+  const res = await nextServer.post("/auth/register", data);
 
+  return res.data;
+};
+
+export const login = async (data: { email: string; password: string }) => {
+  const res = await nextServer.post("/auth/login", data);
+
+  return res.data;
+};
 
 // logout
+export const logout = async () => {
+  const res = await nextServer.post("/auth/logout");
+
+  return res.data;
+};
 
 // checkSession
 

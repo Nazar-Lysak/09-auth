@@ -3,9 +3,17 @@
 import Link from "next/link";
 import css from "./AuthNavigation.module.css";
 import { useAuthStore } from "@/lib/store/authStore";
+import { logout } from "@/lib/api/clientApi";
+import { useRouter } from "next/navigation";
 
 function AuthNavigation() {
-  const { isAuthenticated } = useAuthStore();
+  const router = useRouter();
+  const { isAuthenticated, clearIsAuthenticated } = useAuthStore();
+  const handleLogout = async () => {
+    await logout();
+    clearIsAuthenticated();
+    router.push("sign-in");
+  }
   return (
     <>
       {isAuthenticated && (
@@ -22,7 +30,10 @@ function AuthNavigation() {
 
           <li className={css.navigationItem}>
             <p className={css.userEmail}>User email</p>
-            <button className={css.logoutButton}>Logout</button>
+            <button className={css.logoutButton} onClick={handleLogout}>Logout</button>
+          </li>
+          <li className={css.navigationItem}>
+            <Link href="/notes/filter/all" className={css.navigationLink}>Notes</Link>
           </li>
         </>
       )}

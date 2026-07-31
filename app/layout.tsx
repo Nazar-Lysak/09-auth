@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
+import AuthProvider from "@/components/AuthProvider/AuthProvider";
 
 export const metadata: Metadata = {
   title: "Notehub",
@@ -37,14 +38,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <TanStackProvider>
-        <body className={`min-h-dvh flex flex-col ${roboto.variable}`}>
-          <Header />
-          <div className="grow">
-            {children}
-            {modal}
-          </div>
-          <Footer />
-        </body>
+        
+          <body className={`min-h-dvh flex flex-col ${roboto.variable}`}>
+            <AuthProvider>
+            <Header />
+            <div className="grow">
+              {children}
+              {modal}
+            </div>
+            <Footer />
+            </AuthProvider>
+          </body>
+        
       </TanStackProvider>
     </html>
   );

@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { Note, NoteTag } from "../types/note";
+import type { Note, NoteTag } from "../../types/note";
 
 interface FetchNotesResponse {
   notes: Note[];
@@ -14,7 +14,16 @@ interface HandleSubmitInterface {
 }
 
 const TOKEN = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
-const API_URL = "https://notehub-public.goit.study/api/notes";
+const API_URL = "https://notehub-api.goit.study";
+// const API_LOGIN = "/auth/login";
+// const API_REGISTER = "/auth/register";
+// const API_LOGOUT = "/auth/logout";
+// const API_SESSION = "/auth/session";
+// const API_ME = "/users/me";
+// const API_NOTEST = "/notes";
+// const API_CREATE_NOTE = "/notes";
+// const API_DELETE_NOTES = "/notes";
+// const API_CURRENT_NOTE = "/notes/:id";
 
 export const fetchNotes = async (note: string, page: number, category?: string | undefined): Promise<FetchNotesResponse> => {
   const { data } = await axios.get<FetchNotesResponse>(API_URL, {
@@ -64,3 +73,16 @@ export const fetchNoteById = async (id: string): Promise<Note> => {
 
   return data;
 }
+
+// register
+
+// login
+
+
+// logout
+
+// checkSession
+
+// getMe
+
+// updateMe

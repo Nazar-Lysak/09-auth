@@ -1,29 +1,32 @@
 "use client";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import css from "./SignUpPage.module.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { register } from "@/lib/api/clientApi";
 
-
+interface RegisterData {
+  email: string;
+  password: string;
+}
 
 function SignUpPage() {
-
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
 
   const router = useRouter();
 
-  const createNoteMutation = useMutation({
-    mutationFn: (data) => register(data),
+  const registerMutation = useMutation({
+    mutationFn: (data: RegisterData) => register(data),
+
     onSuccess: () => {
       router.push("/profile");
     },
 
-    onError: (err) => {
-      setError(err.message)
-      console.log(err)
-    }
+    onError: (err: Error) => {
+      setError(err.message);
+      console.log(err);
+    },
   });
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -34,16 +37,24 @@ function SignUpPage() {
     const email = formData.get("email");
     const password = formData.get("password");
 
-    createNoteMutation.mutate({ email, password })
+    if (typeof email !== "string" || typeof password !== "string") {
+      return;
+    }
 
+    registerMutation.mutate({
+      email,
+      password,
+    });
   };
 
   return (
     <main className={css.mainContent}>
       <h1 className={css.formTitle}>Sign up</h1>
-      <form className={css.form} onSubmit={(e) => onSubmit(e)}>
+
+      <form className={css.form} onSubmit={onSubmit}>
         <div className={css.formGroup}>
           <label htmlFor="email">Email</label>
+
           <input
             id="email"
             type="email"
@@ -55,6 +66,7 @@ function SignUpPage() {
 
         <div className={css.formGroup}>
           <label htmlFor="password">Password</label>
+
           <input
             id="password"
             type="password"
@@ -65,8 +77,12 @@ function SignUpPage() {
         </div>
 
         <div className={css.actions}>
-          <button type="submit" className={css.submitButton}>
-            Register
+          <button
+            type="submit"
+            className={css.submitButton}
+            disabled={registerMutation.isPending}
+          >
+            {registerMutation.isPending ? "Registering..." : "Register"}
           </button>
         </div>
 

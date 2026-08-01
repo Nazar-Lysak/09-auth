@@ -1,8 +1,13 @@
 import Link from "next/link";
 import css from "./ProfilePage.module.css";
 import Image from "next/image";
+import { getMe } from "@/lib/api/serverApi";
 
-function ProfilePage() {
+async function ProfilePage() {
+
+  const user = await getMe();
+
+
   return (
     <main className={css.mainContent}>
       <div className={css.profileCard}>
@@ -14,7 +19,7 @@ function ProfilePage() {
         </div>
         <div className={css.avatarWrapper}>
           <Image
-            src="/user_avatar"
+            src={user.avatar}
             alt="User Avatar"
             width={120}
             height={120}
@@ -22,8 +27,8 @@ function ProfilePage() {
           />
         </div>
         <div className={css.profileInfo}>
-          <p>Username: user_username</p>
-          <p>Email: user_email</p>
+          <p>Username: {user.username}</p>
+          <p>Email: {user.email}</p>
         </div>
       </div>
     </main>

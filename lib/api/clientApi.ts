@@ -26,8 +26,22 @@ const API_URL = "https://notehub-api.goit.study";
 // const API_DELETE_NOTES = "/notes";
 // const API_CURRENT_NOTE = "/notes/:id";
 
+export const fetchNoteById = async (id: string): Promise<Note> => {
+  const { data } = await nextServer.get(`/notes/${id}`, {
+    headers: {
+      Authorization: `Bearer ${TOKEN}`,
+    },
+  });
+
+  return data;
+}
+
+
+
+
+
 export const fetchNotes = async (note: string, page: number, category?: string | undefined): Promise<FetchNotesResponse> => {
-  const { data } = await axios.get<FetchNotesResponse>(API_URL, {
+  const { data } = await nextServer.get("/notes", {
     params: {
       search: note,
       page,
@@ -41,9 +55,19 @@ export const fetchNotes = async (note: string, page: number, category?: string |
   return data;
 };
 
+export const deleteNote = async (id: string): Promise<Note> => {
+  const { data } = await nextServer.get(`/notes/${id}`, {
+    headers: {
+      Authorization: `Bearer ${TOKEN}`,
+    },
+  });
+
+  return data;
+};
+
 export const createNote = async (note: HandleSubmitInterface): Promise<Note> => {
-  const { data } = await axios.post<Note>(
-    API_URL,
+  const { data } = await nextServer.post(
+    "/notes",
     note,
     {
       headers: {
@@ -54,27 +78,6 @@ export const createNote = async (note: HandleSubmitInterface): Promise<Note> => 
 
   return data;
 };
-
-export const deleteNote = async (id: string): Promise<Note> => {
-  const { data } = await axios.delete<Note>(`${API_URL}/${id}`, {
-    headers: {
-      Authorization: `Bearer ${TOKEN}`,
-    },
-  });
-
-  return data;
-};
-
-export const fetchNoteById = async (id: string): Promise<Note> => {
-  const { data } = await axios.get<Note>(`${API_URL}/${id}`, {
-    headers: {
-      Authorization: `Bearer ${TOKEN}`,
-    },
-  });
-
-  return data;
-}
-
 
 export const register = async (data: { email: string; password: string }) => {
   const res = await nextServer.post("/auth/register", data);
@@ -95,8 +98,18 @@ export const logout = async () => {
   return res.data;
 };
 
-// checkSession
+export const checkSession = async () => {
+  const res = await nextServer.get("/auth/session");
 
-// getMe
+  return res.data.success;
+};
+
+export const getMe = async () => {
+  const res = await nextServer.get("/users/me");
+  console.log(res.data)
+
+  return res.data;
+};
+
 
 // updateMe

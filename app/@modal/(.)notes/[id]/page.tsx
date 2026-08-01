@@ -1,10 +1,11 @@
-import { fetchNoteById } from "@/lib/api";
+
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
 import NotePreviewClient from "./NotePreview.client";
+import { fetchNoteById } from "@/lib/api/clientApi";
 
 interface NotePewviewProps {
   params: Promise<{

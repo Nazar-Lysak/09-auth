@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-// import { User } from '../api';
 
 interface User {
   username: string;

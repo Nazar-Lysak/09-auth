@@ -7,21 +7,28 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/authStore";
 
+interface LoginData {
+  email: string;
+  password: string;
+}
+
 function SignInPage() {
-  const { setUser } = useAuthStore()
+  const { setUser } = useAuthStore();
+
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const createNoteMutation = useMutation({
-    mutationFn: (data) => login(data),
+  const loginMutation = useMutation({
+    mutationFn: (data: LoginData) => login(data),
+
     onSuccess: (user) => {
       setUser(user);
       router.push("/profile");
     },
 
-    onError: (err) => {
-      setError(err.message)
-    }
+    onError: (err: Error) => {
+      setError(err.message);
+    },
   });
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -32,12 +39,19 @@ function SignInPage() {
     const email = formData.get("email");
     const password = formData.get("password");
 
-    createNoteMutation.mutate({ email, password })
+    if (typeof email !== "string" || typeof password !== "string") {
+      return;
+    }
 
+    loginMutation.mutate({
+      email,
+      password,
+    });
   };
+
   return (
     <main className={css.mainContent}>
-      <form className={css.form} onSubmit={(e) => onSubmit(e)}>
+      <form className={css.form} onSubmit={onSubmit}>
         <h1 className={css.formTitle}>Sign in</h1>
 
         <div className={css.formGroup}>
@@ -63,8 +77,12 @@ function SignInPage() {
         </div>
 
         <div className={css.actions}>
-          <button type="submit" className={css.submitButton}>
-            Log in
+          <button
+            type="submit"
+            className={css.submitButton}
+            disabled={loginMutation.isPending}
+          >
+            {loginMutation.isPending ? "Logging in..." : "Log in"}
           </button>
         </div>
 

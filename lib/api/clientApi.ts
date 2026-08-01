@@ -27,11 +27,7 @@ const API_URL = "https://notehub-api.goit.study";
 // const API_CURRENT_NOTE = "/notes/:id";
 
 export const fetchNoteById = async (id: string): Promise<Note> => {
-  const { data } = await nextServer.get(`/notes/${id}`, {
-    headers: {
-      Authorization: `Bearer ${TOKEN}`,
-    },
-  });
+  const { data } = await nextServer.get(`/notes/${id}`);
 
   return data;
 }

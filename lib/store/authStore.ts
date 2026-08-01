@@ -1,10 +1,5 @@
+import { User } from '@/types/user';
 import { create } from 'zustand';
-
-interface User {
-  username: string;
-  email: string;
-  avatar: string;
-}
 
 type AuthStore = {
   isAuthenticated: boolean;

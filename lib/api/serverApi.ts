@@ -19,3 +19,14 @@ export const getMe = async () => {
     return res.data;
 };
 // checkSession
+
+export const checkServerSession = async () => {
+    const cookieStore = await cookies();
+    const res = await nextServer.get("/auth/session", {
+        headers: {
+            Cookie: cookieStore.toString(),
+        },
+    });
+
+    return res.data.success;
+};

@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 
 function AuthNavigation() {
   const router = useRouter();
-  const { isAuthenticated, clearIsAuthenticated } = useAuthStore();
+  const { isAuthenticated, clearIsAuthenticated, user } = useAuthStore();
   const handleLogout = async () => {
     await logout();
     clearIsAuthenticated();
@@ -29,7 +29,7 @@ function AuthNavigation() {
           </li>
 
           <li className={css.navigationItem}>
-            <p className={css.userEmail}>User email</p>
+            <p className={css.userEmail}>{user?.email || ""}</p>
             <button className={css.logoutButton} onClick={handleLogout}>Logout</button>
           </li>
           <li className={css.navigationItem}>

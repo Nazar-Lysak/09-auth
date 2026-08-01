@@ -56,7 +56,8 @@ export const fetchNotes = async (note: string, page: number, category?: string |
 };
 
 export const deleteNote = async (id: string): Promise<Note> => {
-  const { data } = await nextServer.get(`/notes/${id}`, {
+  console.log(id)
+  const { data } = await nextServer.delete(`/notes/${id}`, {
     headers: {
       Authorization: `Bearer ${TOKEN}`,
     },

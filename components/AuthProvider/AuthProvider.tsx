@@ -31,7 +31,7 @@ function AuthProvider({ children }: AuthProviderProps) {
     }
 
     fetchUser();
-  }, [clearIsAuthenticated])
+  }, [clearIsAuthenticated, setUser])
   return <div>{children}</div>;
 }
 

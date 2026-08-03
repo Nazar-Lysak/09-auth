@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 
@@ -35,13 +35,13 @@ function EditProfilePage() {
     }
 
     registerMutation.mutate({
-      username
+      username,
     });
   };
 
   const cancelClick = () => {
-    router.push("/profile")
-  }
+    router.push("/profile");
+  };
   return (
     <main className={css.mainContent}>
       <div className={css.profileCard}>
@@ -58,7 +58,12 @@ function EditProfilePage() {
         <form className={css.profileInfo} onSubmit={onSubmit}>
           <div className={css.usernameWrapper}>
             <label htmlFor="username">Username:</label>
-            <input id="username" name="username" type="text" className={css.input} />
+            <input
+              id="username"
+              name="username"
+              type="text"
+              className={css.input}
+            />
           </div>
 
           <p>Email: {user?.email}</p>
@@ -67,7 +72,11 @@ function EditProfilePage() {
             <button type="submit" className={css.saveButton}>
               Save
             </button>
-            <button type="button" className={css.cancelButton} onClick={cancelClick}>
+            <button
+              type="button"
+              className={css.cancelButton}
+              onClick={cancelClick}
+            >
               Cancel
             </button>
           </div>

@@ -4,7 +4,7 @@ import { nextServer } from "./api";
 
 interface FetchNotesResponse {
   notes: Note[];
-  totalPages: number
+  totalPages: number;
 }
 
 interface HandleSubmitInterface {
@@ -30,19 +30,19 @@ export const fetchNoteById = async (id: string): Promise<Note> => {
   const { data } = await nextServer.get(`/notes/${id}`);
 
   return data;
-}
+};
 
-
-
-
-
-export const fetchNotes = async (note: string, page: number, category?: string | undefined): Promise<FetchNotesResponse> => {
+export const fetchNotes = async (
+  note: string,
+  page: number,
+  category?: string | undefined,
+): Promise<FetchNotesResponse> => {
   const { data } = await nextServer.get("/notes", {
     params: {
       search: note,
       page,
       perPage: 10,
-      tag: category
+      tag: category,
     },
     headers: {
       Authorization: `Bearer ${TOKEN}`,
@@ -52,7 +52,7 @@ export const fetchNotes = async (note: string, page: number, category?: string |
 };
 
 export const deleteNote = async (id: string): Promise<Note> => {
-  console.log(id)
+  console.log(id);
   const { data } = await nextServer.delete(`/notes/${id}`, {
     headers: {
       Authorization: `Bearer ${TOKEN}`,
@@ -62,16 +62,14 @@ export const deleteNote = async (id: string): Promise<Note> => {
   return data;
 };
 
-export const createNote = async (note: HandleSubmitInterface): Promise<Note> => {
-  const { data } = await nextServer.post(
-    "/notes",
-    note,
-    {
-      headers: {
-        Authorization: `Bearer ${TOKEN}`,
-      },
-    }
-  );
+export const createNote = async (
+  note: HandleSubmitInterface,
+): Promise<Note> => {
+  const { data } = await nextServer.post("/notes", note, {
+    headers: {
+      Authorization: `Bearer ${TOKEN}`,
+    },
+  });
 
   return data;
 };
@@ -103,11 +101,10 @@ export const checkSession = async () => {
 
 export const getMe = async () => {
   const res = await nextServer.get("/users/me");
-  console.log(res.data)
+  console.log(res.data);
 
   return res.data;
 };
-
 
 export const updateMe = async (data: { username: string }) => {
   const res = await nextServer.patch("/users/me", data);

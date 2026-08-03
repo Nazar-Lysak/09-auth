@@ -4,9 +4,7 @@ import Image from "next/image";
 import { getMe } from "@/lib/api/serverApi";
 
 async function ProfilePage() {
-
   const user = await getMe();
-
 
   return (
     <main className={css.mainContent}>

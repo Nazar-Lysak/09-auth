@@ -1,4 +1,3 @@
-import axios from "axios";
 import type { Note, NoteBase } from "../../types/note";
 import { nextServer } from "./api";
 import { User } from "@/types/user";
@@ -31,7 +30,6 @@ export const fetchNotes = async (
 };
 
 export const deleteNote = async (id: string): Promise<Note> => {
-  console.log(id);
   const { data } = await nextServer.delete(`/notes/${id}`);
 
   return data;

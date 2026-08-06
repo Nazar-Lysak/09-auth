@@ -2,6 +2,29 @@ import Link from "next/link";
 import css from "./ProfilePage.module.css";
 import Image from "next/image";
 import { getMe } from "@/lib/api/serverApi";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const user = await getMe();
+
+  return {
+    title: `${user.username} edit page`,
+    description: `${user.username} edit page`,
+    openGraph: {
+      title: `${user.username} edit page`,
+      description: `${user.username} edit page`,
+      url: `https://08-zuatand.vercel.app/profile/edit`,
+      images: [
+        {
+          url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+          width: 1200,
+          height: 630,
+          alt: "Notehub",
+        },
+      ],
+    },
+  };
+}
 
 async function ProfilePage() {
   const user = await getMe();

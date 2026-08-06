@@ -1,15 +1,19 @@
-// import css from "./LayoutNotes.module.css";
+"use client";
 
-interface LayoutNotesProps {
+import { useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
+
+export default function LayoutNotes({
+  children,
+}: {
   children: React.ReactNode;
-}
+}) {
+  const router = useRouter();
+  const pathname = usePathname();
 
-function LayoutNotes({ children }: LayoutNotesProps) {
-  return (
-    <section>
-      <div>{children}</div>
-    </section>
-  );
-}
+  useEffect(() => {
+    router.refresh();
+  }, [pathname, router]);
 
-export default LayoutNotes;
+  return <section>{children}</section>;
+}

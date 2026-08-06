@@ -5,6 +5,7 @@ import css from "./SignUpPage.module.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { register } from "@/lib/api/clientApi";
+import { useAuthStore } from "@/lib/store/authStore";
 
 interface RegisterData {
   email: string;
@@ -13,13 +14,15 @@ interface RegisterData {
 
 function SignUpPage() {
   const [error, setError] = useState("");
+  const { setUser } = useAuthStore();
 
   const router = useRouter();
 
   const registerMutation = useMutation({
     mutationFn: (data: RegisterData) => register(data),
 
-    onSuccess: () => {
+    onSuccess: (data) => {
+      setUser(data)
       router.push("/profile");
     },
 

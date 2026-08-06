@@ -13,9 +13,9 @@ function AuthProvider({ children }: AuthProviderProps) {
 
   useEffect(() => {
     async function fetchUser() {
-      const isAuth = await checkSession();
+      const { success } = await checkSession();
 
-      if (isAuth) {
+      if (success) {
         const user = await getMe();
 
         if (user) {

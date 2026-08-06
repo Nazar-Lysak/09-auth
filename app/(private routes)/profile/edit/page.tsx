@@ -12,13 +12,14 @@ import { useMutation } from "@tanstack/react-query";
 import { updateMe } from "@/lib/api/clientApi";
 
 function EditProfilePage() {
-  const { user } = useAuthStore();
+  const { user, setUser } = useAuthStore();
   const router = useRouter();
 
   const registerMutation = useMutation({
     mutationFn: (data: RegisterData) => updateMe(data),
 
-    onSuccess: () => {
+    onSuccess: (data) => {
+      setUser(data);
       router.push("/profile");
     },
   });
@@ -63,6 +64,7 @@ function EditProfilePage() {
               name="username"
               type="text"
               className={css.input}
+              defaultValue={user?.username}
             />
           </div>
 

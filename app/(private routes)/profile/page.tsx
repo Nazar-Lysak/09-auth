@@ -8,12 +8,12 @@ export async function generateMetadata(): Promise<Metadata> {
   const user = await getMe();
 
   return {
-    title: `${user.username} edit page`,
-    description: `${user.username} edit page`,
+    title: `${user.username} profile page`,
+    description: `${user.username} profile page`,
     openGraph: {
-      title: `${user.username} edit page`,
-      description: `${user.username} edit page`,
-      url: `https://08-zuatand.vercel.app/profile/edit`,
+      title: `${user.username} profile page`,
+      description: `${user.username} profile page`,
+      url: `https://08-zuatand.vercel.app/profile`,
       images: [
         {
           url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",

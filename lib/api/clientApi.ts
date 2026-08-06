@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { Note } from "../../types/note";
+import type { Note, NoteBase } from "../../types/note";
 import { nextServer } from "./api";
 import { User } from "@/types/user";
 
@@ -38,7 +38,7 @@ export const deleteNote = async (id: string): Promise<Note> => {
 };
 
 export const createNote = async (
-  note: Note,
+  note: NoteBase,
 ): Promise<Note> => {
   const { data } = await nextServer.post("/notes", note);
 
